@@ -9,7 +9,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.Hibernate;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -24,7 +26,7 @@ public class User {
     @Column(unique = true)
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_cards",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "card_id"))

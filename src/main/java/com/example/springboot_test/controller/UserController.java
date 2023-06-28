@@ -5,6 +5,8 @@ import com.example.springboot_test.model.Card;
 import com.example.springboot_test.model.User;
 import com.example.springboot_test.service.interfaces.IUserService;
 import com.example.springboot_test.servicedto.interfaces.IUserDtoService;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,27 +50,5 @@ public class UserController {
             return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<User>(user, HttpStatus.OK);
-    }
-
-    @SneakyThrows
-    @GetMapping(value = "/init" , produces = "application/json")
-    public ResponseEntity<String> init(){
-        log.info("Init db with data, call only one time - test only");
-        User user = new User();
-        user.setName("francesco");
-
-        Card card1 = Card.builder().cardName("card1").build();
-        Card card2 = Card.builder().cardName("card2").build();
-        Card card3 = Card.builder().cardName("card3").build();
-        Card card4 = Card.builder().cardName("card4").build();
-
-        // User1 has card1 and card2 and card3 and card4
-        user.getCards().add(card1);
-        user.getCards().add(card2);
-        user.getCards().add(card3);
-        user.getCards().add(card4);
-
-        this.userService.savaUser(user);
-        return new ResponseEntity<String>("ok", HttpStatus.OK);
     }
 }
